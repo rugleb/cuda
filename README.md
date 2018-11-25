@@ -21,11 +21,11 @@ GPU: GeForce 940M
 THREADS NUMBER = 100 (default)
 
 ```
-gleb@home:~/Projects/cuda/clang$ nvcc main.cu && optirun ./a.out 10
+gleb@home:~/Projects/cuda$ nvcc main.cu && optirun ./a.out 10
 >>> CPU time: 0.003 ms
 >>> GPU time: 0.301 ms
 >>> Rate : 0.010
-gleb@home:~/Projects/cuda/clang$ nvcc main.cu && optirun ./a.out 1000
+gleb@home:~/Projects/cuda$ nvcc main.cu && optirun ./a.out 1000
 >>> CPU time: 0.282 ms
 >>> GPU time: 0.284 ms
 >>> Rate : 0.992
@@ -33,7 +33,7 @@ gleb@home:~/Projects/cuda$ nvcc main.cu && optirun ./a.out 10000
 >>> CPU time: 3.091 ms
 >>> GPU time: 0.427 ms
 >>> Rate : 7.233
-gleb@home:~/Projects/cuda/clang$ nvcc main.cu && optirun ./a.out 100000
+gleb@home:~/Projects/cuda$ nvcc main.cu && optirun ./a.out 100000
 >>> CPU time: 29.232 ms
 >>> GPU time: 1.904 ms
 >>> Rate : 15.353
