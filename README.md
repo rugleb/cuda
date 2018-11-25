@@ -1,6 +1,6 @@
 ## Task
 
-Implement a program that implements the heat exchange process in a rod of length SIZE
+Implement a program that implements the heat exchange process in a rod of ARRAY SIZE length
 using an explicit difference scheme of the finite difference method.
 
 ## Run
@@ -8,7 +8,7 @@ using an explicit difference scheme of the finite difference method.
 1. Compile: `nvcc main.cu`
 2. Run: `optirun ./a.out [ARRAY SIZE] [THREADS NUMBER]`
 
-## Perfomance
+## Performance
 
 CPU: Core™ i7-6500U CPU @ 2.50GHz × 4  
 GPU: GeForce 940M
