@@ -21,17 +21,17 @@
 
 static void HandleError(cudaError_t err, const char *file, int line) 
 {
-	if (err != cudaSuccess) {
-		printf("%s in %s at line %d\n", cudaGetErrorString(err), file, line);
-		exit(EXIT_FAILURE);
-	}
+    if (err != cudaSuccess) {
+        printf("%s in %s at line %d\n", cudaGetErrorString(err), file, line);
+        exit(EXIT_FAILURE);
+    }
 }
 
 __global__ void Kernel(double * device, const unsigned int size)
 {
     int i = threadIdx.x + blockIdx.x * blockDim.x;
 
-	if (i == 0) {
+    if (i == 0) {
         device[i] = .0;
     } else if (i == size - 1) {
         device[size - 1] = device[size - 2] + 5 * 1;
@@ -62,7 +62,7 @@ float runGPU(double * device, unsigned int size, unsigned int threads)
     float GPUtime;
     cudaEvent_t GPUstart, GPUstop;
 
-	HANDLE_ERROR(cudaEventCreate(&GPUstart));
+    HANDLE_ERROR(cudaEventCreate(&GPUstart));
     HANDLE_ERROR(cudaEventCreate(&GPUstop));
 
     unsigned int blocks = (unsigned int) size % threads == 0
@@ -78,8 +78,8 @@ float runGPU(double * device, unsigned int size, unsigned int threads)
         Kernel <<< Blocks, Threads >>> (device, size);
     }
 
-	HANDLE_ERROR(cudaEventRecord(GPUstop, 0));
-	HANDLE_ERROR(cudaEventSynchronize(GPUstop));
+    HANDLE_ERROR(cudaEventRecord(GPUstop, 0));
+    HANDLE_ERROR(cudaEventSynchronize(GPUstop));
     HANDLE_ERROR(cudaEventElapsedTime(&GPUtime, GPUstart, GPUstop));
 
     HANDLE_ERROR(cudaEventDestroy(GPUstart));
@@ -107,7 +107,7 @@ double * makeDevice(double * host, unsigned int size)
 
     double * device;
 
-	HANDLE_ERROR(cudaMalloc((void**)&device, memory));
+    HANDLE_ERROR(cudaMalloc((void**)&device, memory));
     HANDLE_ERROR(cudaMemcpy(device, host, memory, cudaMemcpyHostToDevice));
 
     return device;
