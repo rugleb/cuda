@@ -10,5 +10,9 @@ addons:
   apt:
     update: true
 
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y nvidia-cuda-toolkit
+
 script:
   - echo "Hello, world"
