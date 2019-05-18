@@ -7,10 +7,23 @@ A simple program that uses parallel GPU computing on an NVIDIA video card using 
 The implemented program simulates the process of heat transfer along the entire length of the rod of a given size using an explicit [finite-difference scheme](https://en.wikipedia.org/wiki/Finite_difference_method).  
 The longer the rod (array size) - the more calculations need to be done to achieve the result.
 
+## Requirements
+
+* Linux machine
+* [CMake 3.1 or later](https://cmake.org/download)
+* [CUDA Toolkit 9](https://developer.nvidia.com/cuda-90-download-archive)
+
 ## Instructions
 
-1. Compile: `nvcc main.cu`
-2. Run: `optirun ./a.out [ARRAY SIZE] [THREADS NUMBER]`
+Compilation:
+```bash
+nvcc main.cu
+```
+
+Running:
+```bash
+optirun ./a.out [ARRAY SIZE] [CUDA THREADS NUMBER]
+```
 
 ## Performance
 
@@ -43,4 +56,8 @@ gleb@home:~/Projects/cuda$ nvcc main.cu && optirun ./a.out 100000
 
 The final graph of the dependence of the performance gain on the size of the array:  
 
-![](https://github.com/rugleb/cuda/blob/feature/issue-2/benchmark/chart.png?raw=true)
+![](https://github.com/rugleb/cuda/blob/master/benchmark/chart.png?raw=true)
+
+## License
+
+This repo is published under the MIT license, see [LICENSE](https://github.com/rugleb/cuda/blob/master/LICENSE).
