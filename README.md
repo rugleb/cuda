@@ -40,3 +40,7 @@ gleb@home:~/Projects/cuda$ nvcc main.cu && optirun ./a.out 100000
 >>> GPU time: 1.904 ms
 >>> Rate: 15.353
 ```
+
+The final graph of the dependence of the performance gain on the size of the array:  
+
+![](https://github.com/rugleb/cuda/blob/feature/issue-2/benchmark/chart.png?raw=true)
