@@ -17,7 +17,7 @@ The longer the rod (array size) - the more calculations need to be done to achie
 CPU: Core i7-6500U CPU @ 2.50GHz ×4  
 GPU: GeForce 940M
 
-THREADS NUMBER = 100 (default)
+THREADS NUMBER = 100
 
 ```
 gleb@home:~/Projects/cuda$ nvcc main.cu && optirun ./a.out 10
