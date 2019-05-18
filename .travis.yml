@@ -1,0 +1,18 @@
+dist: xenial
+
+language: cpp
+
+compiler:
+  - gcc
+  - clang
+
+addons:
+  apt:
+    update: true
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y nvidia-cuda-toolkit
+
+script:
+  - nvcc main.cu
