@@ -16,3 +16,4 @@ before_install:
 
 script:
   - nvcc main.cu
+  - ./a.out
