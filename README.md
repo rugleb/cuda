@@ -7,6 +7,12 @@ A simple program that uses parallel GPU computing on an NVIDIA video card using 
 The implemented program simulates the process of heat transfer along the entire length of the rod of a given size using an explicit [finite-difference scheme](https://en.wikipedia.org/wiki/Finite_difference_method).  
 The longer the rod (array size) - the more calculations need to be done to achieve the result.
 
+## Requirements
+
+* Linux machine
+* [CMake 3.1 or later](https://cmake.org/download)
+* [CUDA Toolkit 9](https://developer.nvidia.com/cuda-90-download-archive)
+
 ## Instructions
 
 1. Compile: `nvcc main.cu`
