@@ -1,0 +1,13 @@
+dist: xenial
+
+language: cpp
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    update: true
+
+script:
+  - echo "Hello, world"
