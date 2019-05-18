@@ -15,8 +15,15 @@ The longer the rod (array size) - the more calculations need to be done to achie
 
 ## Instructions
 
-1. Compile: `nvcc main.cu`
-2. Run: `optirun ./a.out [ARRAY SIZE] [THREADS NUMBER]`
+Compilation:
+```bash
+nvcc main.cu
+```
+
+Running:
+```bash
+optirun ./a.out [ARRAY SIZE] [CUDA THREADS NUMBER]
+```
 
 ## Performance
 
