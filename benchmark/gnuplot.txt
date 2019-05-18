@@ -1,0 +1,10 @@
+# command: gnuplot gnuplot.txt
+
+set xlabel "ARRAY SIZE"
+set ylabel "RATE"
+set format x '%.0e'
+plot 'output.data' smooth bezier
+set term png
+set output "chart.png"
+replot
+set term x11
