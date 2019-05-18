@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.com/rugleb/cuda.svg?branch=master)](https://travis-ci.com/rugleb/cuda)
+[![Language](https://img.shields.io/badge/Lang-CUDA-green.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## About
 
 A simple example of a program using the GPU for parallel calculations
