@@ -49,4 +49,8 @@ gleb@home:~/Projects/cuda$ nvcc main.cu && optirun ./a.out 100000
 
 The final graph of the dependence of the performance gain on the size of the array:  
 
-![](https://github.com/rugleb/cuda/blob/feature/issue-2/benchmark/chart.png?raw=true)
+![](https://github.com/rugleb/cuda/blob/master/benchmark/chart.png?raw=true)
+
+## License
+
+This repo is published under the MIT license, see [LICENSE](https://github.com/rugleb/cuda/blob/master/LICENSE).
