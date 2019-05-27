@@ -2,7 +2,7 @@
 #include "device_launch_parameters.h"
 
 #include <stdio.h>
-#include <stdlib.h>
+
 
 #define TIME                5.
 #define TIME_STEP           .1
