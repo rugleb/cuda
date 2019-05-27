@@ -29,7 +29,7 @@ __global__ void Kernel(double * device, const uint size)
     if (i == 0) {
         device[i] = .0;
     } else if (i == size - 1) {
-        device[size - 1] = device[size - 2] + 5 * 1;
+        device[size - 1] = device[size - 2] + 5 * STEP;
     } else if (i < size) {
         device[i] = (device[i + 1] - 2 * device[i] + device[i - 1]) * K + device[i];
     }
