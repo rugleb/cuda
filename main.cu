@@ -19,7 +19,7 @@
 #define HANDLE_ERROR(err)   (HandleError(err, __FILE__, __LINE__))
 
 
-static void HandleError(cudaError_t err, const char *file, int line) 
+static void HandleError(cudaError_t err, const char *file, uint line)
 {
     if (err != cudaSuccess) {
         printf("%s in %s at line %d\n", cudaGetErrorString(err), file, line);
@@ -44,7 +44,7 @@ float runCPU(double * host, uint size)
 {
     float start = clock();
 
-    for (double t = 0; t < TIME; t += TIME_STEP) {
+    for (double t = 0.; t < TIME; t += TIME_STEP) {
         host[0] = .0;
 
         for (int i = 1; i < size - 1; i++) {
@@ -59,11 +59,11 @@ float runCPU(double * host, uint size)
 
 float runGPU(double * device, uint size, uint threads)
 {
-    float GPUtime;
-    cudaEvent_t GPUstart, GPUstop;
+    float timeCPU;
+    cudaEvent_t start, stop;
 
-    HANDLE_ERROR(cudaEventCreate(&GPUstart));
-    HANDLE_ERROR(cudaEventCreate(&GPUstop));
+    HANDLE_ERROR(cudaEventCreate(&start));
+    HANDLE_ERROR(cudaEventCreate(&stop));
 
     uint blocks = (uint) size % threads == 0
         ? size / threads
@@ -72,20 +72,20 @@ float runGPU(double * device, uint size, uint threads)
     dim3 Threads(threads);
     dim3 Blocks(blocks);
     
-    HANDLE_ERROR(cudaEventRecord(GPUstart, 0));
+    HANDLE_ERROR(cudaEventRecord(start, 0));
 
     for (double t = 0; t < TIME; t += TIME_STEP) {
         Kernel <<< Blocks, Threads >>> (device, size);
     }
 
-    HANDLE_ERROR(cudaEventRecord(GPUstop, 0));
-    HANDLE_ERROR(cudaEventSynchronize(GPUstop));
-    HANDLE_ERROR(cudaEventElapsedTime(&GPUtime, GPUstart, GPUstop));
+    HANDLE_ERROR(cudaEventRecord(stop, 0));
+    HANDLE_ERROR(cudaEventSynchronize(stop));
+    HANDLE_ERROR(cudaEventElapsedTime(&timeCPU, start, stop));
 
-    HANDLE_ERROR(cudaEventDestroy(GPUstart));
-    HANDLE_ERROR(cudaEventDestroy(GPUstop));
+    HANDLE_ERROR(cudaEventDestroy(start));
+    HANDLE_ERROR(cudaEventDestroy(stop));
 
-    return GPUtime;
+    return timeCPU;
 }
 
 double * makeHost(uint size)
@@ -121,12 +121,12 @@ int main(int argc, char **argv)
     double * host = makeHost(size);
     double * device = makeDevice(host, size);
 
-    float CPUtime = runCPU(host, size);
-    float GPUtime = runGPU(device, size, threads);
+    float timeCPU = runCPU(host, size);
+    float timeGPU = runGPU(device, size, threads);
 
-    printf("CPU time: %.3f ms\n", CPUtime);
-    printf("GPU time: %.3f ms\n", GPUtime);
-    printf("Rate : %.3f\n", CPUtime / GPUtime);
+    printf("CPU time: %.3f ms\n", timeCPU);
+    printf("GPU time: %.3f ms\n", timeGPU);
+    printf("Rate : %.3f\n", timeCPU / timeGPU);
     
     free(host);
     HANDLE_ERROR(cudaFree(device));
