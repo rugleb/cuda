@@ -7,13 +7,8 @@
 #define TIME                5.
 #define TIME_STEP           .1
 
-#define SIZE                (uint) 1e+5
-#define STEP                1
-
-#define K                   (double) TIME_STEP / SQUARE(STEP)
-
-#define THREADS             (uint) 1e+2
-#define BLOCKS              (uint) SIZE / THREADS
+#define STEP                1.
+#define K                   TIME_STEP / SQUARE(STEP)
 
 #define SQUARE(x)           (x * x)
 #define HANDLE_ERROR(err)   (HandleError(err, __FILE__, __LINE__))
@@ -115,8 +110,8 @@ double * makeDevice(double * host, uint size)
 
 int main(int argc, char **argv)
 {
-    uint size = (uint) argc > 1 ? atol(argv[1]) : SIZE;
-    uint threads = (uint) argc > 2 ? atol(argv[2]) : THREADS;
+    uint size = (uint) argc > 1 ? atol(argv[1]) : 1e+5;
+    uint threads = (uint) argc > 2 ? atol(argv[2]) : 1e+2;
 
     double * host = makeHost(size);
     double * device = makeDevice(host, size);
