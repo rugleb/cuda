@@ -54,7 +54,7 @@ float runCPU(double * host, uint size)
 
 float runGPU(double * device, uint size, uint threads)
 {
-    float timeCPU;
+    float time;
     cudaEvent_t start, stop;
 
     HANDLE_ERROR(cudaEventCreate(&start));
@@ -75,12 +75,12 @@ float runGPU(double * device, uint size, uint threads)
 
     HANDLE_ERROR(cudaEventRecord(stop, 0));
     HANDLE_ERROR(cudaEventSynchronize(stop));
-    HANDLE_ERROR(cudaEventElapsedTime(&timeCPU, start, stop));
+    HANDLE_ERROR(cudaEventElapsedTime(&time, start, stop));
 
     HANDLE_ERROR(cudaEventDestroy(start));
     HANDLE_ERROR(cudaEventDestroy(stop));
 
-    return timeCPU;
+    return time;
 }
 
 double * makeHost(uint size)
