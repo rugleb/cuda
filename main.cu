@@ -7,13 +7,13 @@
 #define TIME                5.
 #define TIME_STEP           .1
 
-#define SIZE                (unsigned int) 1e+5
+#define SIZE                (uint) 1e+5
 #define STEP                1
 
 #define K                   (double) TIME_STEP / SQUARE(STEP)
 
-#define THREADS             (unsigned int) 1e+2
-#define BLOCKS              (unsigned int) SIZE / THREADS
+#define THREADS             (uint) 1e+2
+#define BLOCKS              (uint) SIZE / THREADS
 
 #define SQUARE(x)           (x * x)
 #define HANDLE_ERROR(err)   (HandleError(err, __FILE__, __LINE__))
@@ -27,7 +27,7 @@ static void HandleError(cudaError_t err, const char *file, int line)
     }
 }
 
-__global__ void Kernel(double * device, const unsigned int size)
+__global__ void Kernel(double * device, const uint size)
 {
     int i = threadIdx.x + blockIdx.x * blockDim.x;
 
@@ -40,7 +40,7 @@ __global__ void Kernel(double * device, const unsigned int size)
     }
 }
 
-float runCPU(double * host, unsigned int size)
+float runCPU(double * host, uint size)
 {
     float start = clock();
 
@@ -57,7 +57,7 @@ float runCPU(double * host, unsigned int size)
     return 1e+3 * (clock() - start) / CLOCKS_PER_SEC;
 }
 
-float runGPU(double * device, unsigned int size, unsigned int threads)
+float runGPU(double * device, uint size, uint threads)
 {
     float GPUtime;
     cudaEvent_t GPUstart, GPUstop;
@@ -65,7 +65,7 @@ float runGPU(double * device, unsigned int size, unsigned int threads)
     HANDLE_ERROR(cudaEventCreate(&GPUstart));
     HANDLE_ERROR(cudaEventCreate(&GPUstop));
 
-    unsigned int blocks = (unsigned int) size % threads == 0
+    uint blocks = (uint) size % threads == 0
         ? size / threads
         : size / threads + 1;
 
@@ -88,22 +88,22 @@ float runGPU(double * device, unsigned int size, unsigned int threads)
     return GPUtime;
 }
 
-double * makeHost(unsigned int size)
+double * makeHost(uint size)
 {
-    unsigned int memory = sizeof(double) * size;
+    uint memory = sizeof(double) * size;
 
     double * host = (double *)malloc(memory);
 
-    for (unsigned int i = 0; i < size; i++) {
+    for (uint i = 0; i < size; i++) {
         host[i] = .0;
     }
 
     return host;
 }
 
-double * makeDevice(double * host, unsigned int size)
+double * makeDevice(double * host, uint size)
 {
-    unsigned int memory = sizeof(double) * size;
+    uint memory = sizeof(double) * size;
 
     double * device;
 
@@ -115,8 +115,8 @@ double * makeDevice(double * host, unsigned int size)
 
 int main(int argc, char **argv)
 {
-    unsigned int size = (unsigned int) argc > 1 ? atol(argv[1]) : SIZE;
-    unsigned int threads = (unsigned int) argc > 2 ? atol(argv[2]) : THREADS;
+    uint size = (uint) argc > 1 ? atol(argv[1]) : SIZE;
+    uint threads = (uint) argc > 2 ? atol(argv[2]) : THREADS;
 
     double * host = makeHost(size);
     double * device = makeDevice(host, size);
